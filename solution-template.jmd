@@ -41,10 +41,43 @@ graphplot(A, names=names, markersize=0.15, markershapes=shapes, markercolor=:whi
 
 ## Problem 1.2
 
+
 ## Problem 1.3
+```julia
+
+# implementing method 1
+function Method1(X1)
+    C1= X1.^2/20; # in $/day
+    Y1= 0.2*1 .* X1 .+ (100 .- X1)*1; # in kg/d discharged to river
+    return C1, Y1
+end
+
+# implementing method 2
+function Method2(X2)
+    C2= X2*1.5; # in $/day
+    e= 1 .- 0.005*X2;
+    Y2= (1 .- e) .* 1 .* X2 .+ (100 .- X2)*1; # in kg/d discharged to river
+    return C2, Y2
+end 
+```
 
 ## Problem 1.4
+```julia
+using Plots
 
+# X1 and X2 must be between 0 and 100 m^3/d
+X1= range(0, 100, length = 11);
+X2= X1; 
+
+C1, Y1= Method1(X1);
+C2, Y2= Method2(X2);
+
+scatter(Y1, C1, label="Method 1")
+scatter!(Y2, C2, label="Method 2")
+
+vline!([20], label="EPA Max YUK Concentration")
+
+```
 ## Problem 1.5
 
 ## Problem 1.6
